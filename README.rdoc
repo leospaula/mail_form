@@ -1,3 +1,5 @@
-= MailForm
+= MailForm plugin
 
-This project rocks and uses MIT-LICENSE.
+
+Mail Form’s goal is to receive a hash of parameters sent by a POST request, validate them, and
+email them to a specified email address. This abstraction allow to create fully functional contact forms in just a couple of minutes!

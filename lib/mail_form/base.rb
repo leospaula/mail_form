@@ -1,15 +1,19 @@
 module MailForm
 	class Base
 		include ActiveModel::Conversion
+		include ActiveModel::Validations
+		include ActiveModel::AttributeMethods
 
 		extend ActiveModel::Naming
 		extend ActiveModel::Translation
+		extend ActiveModel::Callbacks
 
-		include ActiveModel::Validations
-		include ActiveModel::AttributeMethods
+		include MailForm::Validators
+
 		attribute_method_prefix 'clear_'
-
 		attribute_method_suffix '?'
+
+		define_model_callbacks :deliver
 
 		class_attribute :attribute_names
 		self.attribute_names = []
@@ -33,7 +37,9 @@ module MailForm
 
 		def deliver
 			if valid?
-				MailForm::Notifier.contact(self).deliver_now
+				run_callbacks(:deliver) do
+					MailForm::Notifier.contact(self).deliver_now
+				end
 			else
 				false
 			end
