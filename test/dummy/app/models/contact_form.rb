@@ -1,5 +1,5 @@
-class SampleMail < MailForm::Base
-	attributes :name, :email
+class ContactForm < MailForm::Base
+	attributes :name, :email, :message
 
 	def headers
 		{ to: "recipient@example.com", from: self.email }

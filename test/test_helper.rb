@@ -18,3 +18,11 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
   ActionDispatch::IntegrationTest.fixture_path = ActiveSupport::TestCase.fixture_path
   ActiveSupport::TestCase.fixtures :all
 end
+
+require "capybara"
+require "capybara/rails"
+
+class ActiveSupport::IntegrationCase < ActiveSupport::TestCase
+	include Capybara::DSL
+	include Rails.application.routes.url_helpers
+end
